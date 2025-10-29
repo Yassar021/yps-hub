@@ -1,0 +1,8 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="120" fill="#2563eb"/>
+  <text x="256" y="200" font-family="Arial, sans-serif" font-size="120" font-weight="bold" fill="white" text-anchor="middle">YPS</text>
+  <text x="256" y="340" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="white" text-anchor="middle">HUB</text>
+  <circle cx="180" cy="380" r="8" fill="white"/>
+  <circle cx="256" cy="380" r="8" fill="white"/>
+  <circle cx="332" cy="380" r="8" fill="#f59e0b"/>
+</svg>
