@@ -19,9 +19,29 @@ const parkinsans = Parkinsans({
 });
 
 export const metadata: Metadata = {
-  title: "Codeguide Starter Fullstack",
-  description:
-    "A modern Next.js starter with TypeScript, TailwindCSS, shadcn/ui, Better Auth, and Drizzle ORM",
+  title: "YPS HUB - Digital Gateway SMP YPS SINGKOLE",
+  description: "Your Digital Gateway to YPS - One Hub, All Platforms",
+  manifest: "/manifest.json",
+  themeColor: "#2563eb",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "YPS HUB",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    siteName: "YPS HUB",
+    title: "YPS HUB - Digital Gateway SMP YPS SINGKOLE",
+    description: "Your Digital Gateway to YPS - One Hub, All Platforms",
+  },
+  twitter: {
+    card: "summary",
+    title: "YPS HUB - Digital Gateway SMP YPS SINGKOLE",
+    description: "Your Digital Gateway to YPS - One Hub, All Platforms",
+  },
 };
 
 export default function RootLayout({
