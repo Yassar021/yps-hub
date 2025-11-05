@@ -73,15 +73,56 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              if ('serviceWorker' in navigator && !window.location.hostname.includes('localhost')) {
+              // Force update service worker to ensure latest changes
+              if ('serviceWorker' in navigator) {
+                const isDevelopment = window.location.hostname.includes('localhost');
+
                 window.addEventListener('load', () => {
-                  navigator.serviceWorker.register('/sw.js')
-                    .then((registration) => {
-                      console.log('SW registered: ', registration);
-                    })
-                    .catch((registrationError) => {
-                      console.log('SW registration failed: ', registrationError);
+                  // Unregister all old service workers first
+                  navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                    for(let registration of registrations) {
+                      console.log('Unregistering old SW:', registration.scope);
+                      registration.unregister();
+                    }
+
+                    // Register new service worker with fresh cache
+                    navigator.serviceWorker.register('/sw.js')
+                      .then((registration) => {
+                        console.log('New SW registered: ', registration);
+
+                        // Force update if there's a waiting worker
+                        if (registration.waiting) {
+                          registration.waiting.postMessage({type: 'SKIP_WAITING'});
+                        }
+
+                        // Listen for updates
+                        registration.addEventListener('updatefound', () => {
+                          const newWorker = registration.installing;
+                          if (newWorker) {
+                            newWorker.addEventListener('statechange', () => {
+                              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                console.log('SW updated, reloading...');
+                                window.location.reload();
+                              }
+                            });
+                          }
+                        });
+                      })
+                      .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                      });
+                  });
+
+                  // Clear old caches
+                  if ('caches' in window && !isDevelopment) {
+                    caches.keys().then(function(cacheNames) {
+                      cacheNames.forEach(function(cacheName) {
+                        if (!cacheName.includes('yps-hub-v2')) {
+                          caches.delete(cacheName);
+                        }
+                      });
                     });
+                  }
                 });
               }
             `,

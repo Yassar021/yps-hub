@@ -1,4 +1,4 @@
-const CACHE_NAME = 'yps-hub-v1';
+const CACHE_NAME = 'yps-hub-v2';
 const urlsToCache = [
   '/',
   '/manifest.json',
@@ -25,12 +25,13 @@ self.addEventListener('install', (event) => {
 
 // Fetch event - serve from cache when offline
 self.addEventListener('fetch', (event) => {
-  // Skip SW for development assets and API calls
+  // Skip SW for development assets and API calls, and always skip for HTML files to ensure fresh content
   if (isDevelopment ||
       event.request.url.includes('/_next/') ||
       event.request.url.includes('/api/') ||
       event.request.url.includes('hot-update') ||
-      event.request.url.includes('sockjs-node')) {
+      event.request.url.includes('sockjs-node') ||
+      event.request.destination === 'document') {
     return;
   }
 
