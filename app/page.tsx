@@ -1,3 +1,5 @@
+"use client";
+
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -26,7 +28,10 @@ export default function Home() {
               <p className="text-xs sm:text-sm text-blue-700 dark:text-blue-300 mb-4 sm:mb-6 px-2">
                 Monitoring Task for teachers and parents
               </p>
-              <Button className="w-full max-w-[200px] bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base">
+              <Button
+                className="w-full max-w-[200px] bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base"
+                onClick={() => window.open('https://task-tracker-yps.vercel.app/', '_blank')}
+              >
                 Launch Platform
               </Button>
             </div>
