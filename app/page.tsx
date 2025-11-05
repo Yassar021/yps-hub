@@ -7,11 +7,9 @@ import {
   MapPin,
 } from "lucide-react";
 import { HeroSection } from "./components/hero-section";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Home() {
-  const router = useRouter();
-
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 flex flex-col" suppressHydrationWarning>
       <HeroSection />
@@ -31,18 +29,13 @@ export default function Home() {
               <p className="text-xs sm:text-sm text-blue-700 dark:text-blue-300 mb-4 sm:mb-6 px-2">
                 Monitoring Task for teachers and parents
               </p>
-              <Button
-                className="w-full max-w-[200px] bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base"
-                onClick={() => {
-                  // Option 1: Navigate to external site within the same window
-                  window.location.href = 'https://task-tracker-yps.vercel.app/';
-
-                  // Option 2 (Alternative): If you want to create an internal route for the platform
-                  // router.push('/platforms/taskmaster');
-                }}
+              <Link
+                href="https://task-tracker-yps.vercel.app/"
+                target="_self"
+                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-blue-600 hover:bg-blue-700 text-white h-10 px-4 py-2 w-full max-w-[200px]"
               >
                 Launch Platform
-              </Button>
+              </Link>
             </div>
           </Card>
 
